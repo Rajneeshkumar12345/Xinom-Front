@@ -4,6 +4,8 @@ import axios from 'axios';
 import { toast } from 'sonner'
 
 const Home = () => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+     console.log(apiUrl, "Urllllll")
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -159,7 +161,7 @@ const Home = () => {
                     formDataToSend.append('documents', doc.file);
                 });
 
-                const response = await axios.post('http://localhost:4000/api/form/submit', formDataToSend, {
+                const response = await axios.post(`${apiUrl}/api/form/submit`, formDataToSend, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -299,7 +301,7 @@ const Home = () => {
                             name="residentialStreet2"
                             value={formData.residentialAddress?.street2 || ''}
                             onChange={handleChange}
-                            // required
+                        // required
                         />
                         {errors.street2 && <div className="invalid-feedback">{errors.street2}</div>}
                     </div>
@@ -343,7 +345,7 @@ const Home = () => {
                                     onChange={handleChange}
                                     disabled={formData.sameAddress}
                                 />
-                                  {errors.permanentStreet2 && <div className="invalid-feedback">{errors.permanentStreet2}</div>}
+                                {errors.permanentStreet2 && <div className="invalid-feedback">{errors.permanentStreet2}</div>}
                             </div>
                         </>
                     )}
